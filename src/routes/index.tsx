@@ -3,6 +3,8 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Section, Eyebrow, TrustBadge } from "@/components/ui-bits";
 import { useLang } from "@/lib/i18n";
 import heroImage from "@/assets/virtual-call.jpg.asset.json";
+import { useContent, useImageOverride } from "@/lib/content-hooks";
+import { useSignedUrl } from "@/lib/signed-url";
 
 const ctaClasses =
   "inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3.5 text-base font-semibold hover:opacity-90 transition";
@@ -29,6 +31,15 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t } = useLang();
+  const heroTitle = useContent("home_hero_title", t("home_hero_title"));
+  const heroLead = useContent("home_hero_lead", t("home_hero_lead"));
+  const whyP1 = useContent("home_why_p1", t("home_why_p1"));
+  const whyP2 = useContent("home_why_p2", t("home_why_p2"));
+  const whyP3 = useContent("home_why_p3", t("home_why_p3"));
+  const disclaimer = useContent("home_disclaimer", t("home_disclaimer"));
+  const heroImg = useImageOverride("home_hero");
+  const heroOverride = useSignedUrl("site-assets", heroImg.data?.storage_path);
+  const heroSrc = heroOverride ?? heroImage.url;
   return (
     <SiteLayout>
       <section className="relative overflow-hidden">
@@ -44,9 +55,9 @@ function Home() {
           <div>
             <TrustBadge />
             <h1 className="mt-5 font-serif text-4xl sm:text-5xl md:text-[3.25rem] font-semibold text-primary leading-[1.05]">
-              {t("home_hero_title")}
+              {heroTitle}
             </h1>
-            <p className="mt-5 text-lg text-foreground/70 max-w-xl">{t("home_hero_lead")}</p>
+            <p className="mt-5 text-lg text-foreground/70 max-w-xl">{heroLead}</p>
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
               <Link to="/request-call" className={ctaClasses}>
                 {t("cta_request_arrow")}
@@ -63,7 +74,7 @@ function Home() {
           <div className="relative">
             <div className="aspect-[5/4] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm">
               <img
-                src={heroImage.url}
+                src={heroSrc}
                 alt={t("hero_image_alt")}
                 className="h-full w-full object-cover"
                 loading="eager"
@@ -102,9 +113,9 @@ function Home() {
             </h2>
           </div>
           <div className="space-y-4 text-foreground/80 leading-relaxed">
-            <p>{t("home_why_p1")}</p>
-            <p>{t("home_why_p2")}</p>
-            <p>{t("home_why_p3")}</p>
+            <p>{whyP1}</p>
+            <p>{whyP2}</p>
+            <p>{whyP3}</p>
           </div>
         </div>
       </section>
@@ -112,7 +123,7 @@ function Home() {
       <Section className="py-12 md:py-14">
         <div className="rounded-lg border border-border bg-card p-6 md:p-8 text-center">
           <p className="text-sm md:text-base text-foreground/80 max-w-3xl mx-auto">
-            {t("home_disclaimer")}
+            {disclaimer}
           </p>
         </div>
       </Section>
