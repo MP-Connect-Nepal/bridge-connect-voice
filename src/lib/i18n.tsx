@@ -19,7 +19,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined") localStorage.setItem("mpcn-lang", l);
   };
 
-  const t = <K extends keyof Dict>(k: K) => dict[k][lang];
+  const t = (k: keyof Dict) => dict[k][lang];
 
   return <LanguageContext.Provider value={{ lang, setLang, t }}>{children}</LanguageContext.Provider>;
 }
