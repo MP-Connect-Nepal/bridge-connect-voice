@@ -22,14 +22,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
+        <div className="mx-auto max-w-6xl px-4 py-3 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:flex lg:justify-between">
           <Link to="/" className="flex items-center gap-2 min-w-0" onClick={() => setOpen(false)}>
             <span className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground shrink-0">
               <span className="font-serif font-semibold">M</span>
             </span>
             <span className="flex flex-col leading-tight min-w-0">
               <span className="font-serif text-base font-semibold truncate">MPConnectNepal</span>
-              <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground truncate">
                 Independent · Non-partisan
               </span>
             </span>
@@ -49,26 +49,27 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
-          <a
-            href="#google-form-link"
-            className="hidden sm:inline-flex items-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:opacity-90 transition"
-          >
-            Request a Call
-          </a>
-
-          <button
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-border"
-          >
-            <span className="sr-only">Menu</span>
-            <div className="flex flex-col gap-1">
-              <span className="block h-0.5 w-4 bg-foreground" />
-              <span className="block h-0.5 w-4 bg-foreground" />
-              <span className="block h-0.5 w-4 bg-foreground" />
-            </div>
-          </button>
+          <div className="flex items-center gap-2">
+            <a
+              href="#google-form-link"
+              className="hidden sm:inline-flex items-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:opacity-90 transition"
+            >
+              Request a Call
+            </a>
+            <button
+              aria-label="Toggle menu"
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-border"
+            >
+              <span className="sr-only">Menu</span>
+              <div className="flex flex-col gap-1">
+                <span className="block h-0.5 w-4 bg-foreground" />
+                <span className="block h-0.5 w-4 bg-foreground" />
+                <span className="block h-0.5 w-4 bg-foreground" />
+              </div>
+            </button>
+          </div>
         </div>
         {open && (
           <div className="lg:hidden border-t border-border">
@@ -105,9 +106,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="grid place-items-center h-8 w-8 rounded-md bg-primary text-primary-foreground font-serif">
-                M
-              </span>
+              <span className="grid place-items-center h-8 w-8 rounded-md bg-primary text-primary-foreground font-serif">M</span>
               <span className="font-serif font-semibold">MPConnectNepal</span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
@@ -150,10 +149,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="border-t border-border">
           <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-muted-foreground flex flex-col sm:flex-row gap-2 justify-between">
             <span>© {new Date().getFullYear()} MPConnectNepal. All rights reserved.</span>
-            <span>
-              Independent · Non-partisan · Not affiliated with any political party or the
-              Government of Nepal.
-            </span>
+            <span>Independent · Non-partisan · Not affiliated with any political party or the Government of Nepal.</span>
           </div>
         </div>
       </footer>

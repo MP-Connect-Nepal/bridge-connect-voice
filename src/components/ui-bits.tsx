@@ -1,14 +1,8 @@
 import type { ReactNode } from "react";
 
 export function Section({
-  children,
-  className = "",
-  id,
-}: {
-  children: ReactNode;
-  className?: string;
-  id?: string;
-}) {
+  children, className = "", id,
+}: { children: ReactNode; className?: string; id?: string }) {
   return (
     <section id={id} className={`mx-auto max-w-6xl px-4 py-16 md:py-20 ${className}`}>
       {children}
@@ -25,23 +19,15 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 export function PageHeader({
-  eyebrow,
-  title,
-  lead,
-}: {
-  eyebrow?: string;
-  title: string;
-  lead?: string;
-}) {
+  eyebrow, title, lead,
+}: { eyebrow?: string; title: string; lead?: string }) {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-14 pb-4 md:pt-20">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <h1 className="mt-3 font-serif text-4xl md:text-5xl font-semibold text-primary max-w-3xl">
         {title}
       </h1>
-      {lead && (
-        <p className="mt-4 text-lg text-muted-foreground max-w-2xl">{lead}</p>
-      )}
+      {lead && <p className="mt-4 text-lg text-muted-foreground max-w-2xl">{lead}</p>}
     </div>
   );
 }

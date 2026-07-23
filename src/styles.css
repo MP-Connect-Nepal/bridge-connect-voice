@@ -30,7 +30,6 @@
 
 :root {
   --radius: 0.5rem;
-  /* Calm parchment / trust-blue palette. Crimson accent = subtle nod to Nepali flag, used sparingly. */
   --background: oklch(0.985 0.005 90);
   --foreground: oklch(0.22 0.03 250);
   --card: oklch(1 0 0);
@@ -52,9 +51,7 @@
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
+  * { border-color: var(--color-border); }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
