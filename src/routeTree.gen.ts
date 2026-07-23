@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WallRouteImport } from './routes/wall'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RequestCallRouteImport } from './routes/request-call'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
@@ -22,6 +23,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 
+const WallRoute = WallRouteImport.update({
+  id: '/wall',
+  path: '/wall',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/request-call': typeof RequestCallRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/wall': typeof WallRoute
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/request-call': typeof RequestCallRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/wall': typeof WallRoute
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/request-call': typeof RequestCallRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/wall': typeof WallRoute
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/request-call'
     | '/sitemap.xml'
+    | '/wall'
     | '/account'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/request-call'
     | '/sitemap.xml'
+    | '/wall'
     | '/account'
     | '/admin'
   id:
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/request-call'
     | '/sitemap.xml'
+    | '/wall'
     | '/_authenticated/account'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
@@ -177,10 +189,18 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   RequestCallRoute: typeof RequestCallRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WallRoute: typeof WallRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wall': {
+      id: '/wall'
+      path: '/wall'
+      fullPath: '/wall'
+      preLoaderRoute: typeof WallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -292,6 +312,7 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   RequestCallRoute: RequestCallRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WallRoute: WallRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
