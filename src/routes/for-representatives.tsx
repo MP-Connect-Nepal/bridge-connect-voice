@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
 import { submitPartnership } from "@/lib/form-submit.functions";
+import { useLang } from "@/lib/i18n";
 
 const CONTACT_EMAIL = "suunil428@gmail.com";
 
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/for-representatives")({
 });
 
 function ForReps() {
+  const { t } = useLang();
   const submit = useServerFn(submitPartnership);
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -43,24 +45,20 @@ function ForReps() {
     } catch (err) {
       console.error(err);
       setStatus("error");
-      setError("Sorry — we couldn't submit your inquiry just now. Please try again.");
+      setError(err instanceof Error ? err.message : t("rc_error_generic"));
     }
   }
 
   return (
     <SiteLayout>
-      <PageHeader
-        eyebrow="For MPs & Staff"
-        title="Hear from your constituents — without the noise."
-        lead="MPConnectNepal filters, groups, and organizes citizen requests by constituency so your time on the call goes to real, substantive input."
-      />
+      <PageHeader eyebrow={t("reps_eyebrow")} title={t("reps_title")} lead={t("reps_lead")} />
 
       <Section className="pt-6">
         <div className="grid gap-6 md:grid-cols-3">
           {[
-            { t: "Pre-screened requests", d: "Every submission is reviewed by our team. Duplicates, spam, and off-topic messages don't reach you." },
-            { t: "Grouped by constituency", d: "You hear from many of your own constituents at once, in a single organized session." },
-            { t: "Logistics fully handled", d: "We schedule, host on Google Meet, moderate the session, and share notes back with participants." },
+            { t: t("reps_b1_t"), d: t("reps_b1_d") },
+            { t: t("reps_b2_t"), d: t("reps_b2_d") },
+            { t: t("reps_b3_t"), d: t("reps_b3_d") },
           ].map((b) => (
             <div key={b.t} className="rounded-lg border border-border bg-card p-6">
               <h3 className="font-serif text-lg font-semibold text-primary">{b.t}</h3>
@@ -72,22 +70,22 @@ function ForReps() {
 
       <section className="bg-secondary/50 border-y border-border">
         <div className="mx-auto max-w-3xl px-4 py-16 md:py-20">
-          <h2 className="font-serif text-3xl font-semibold text-primary">Partner with us</h2>
-          <p className="mt-3 text-foreground/80">If you're an MP or a member of an MP's office, we'd love to hear from you. Fill out the short form below and we'll be in touch to discuss a pilot session.</p>
+          <h2 className="font-serif text-3xl font-semibold text-primary">{t("reps_partner_title")}</h2>
+          <p className="mt-3 text-foreground/80">{t("reps_partner_lead")}</p>
 
           {status === "done" ? (
             <div className="mt-8 rounded-lg border border-border bg-card p-8 text-center">
-              <h3 className="font-serif text-xl font-semibold text-primary">Thank you.</h3>
-              <p className="mt-2 text-muted-foreground">We've received your inquiry and will be in touch soon.</p>
+              <h3 className="font-serif text-xl font-semibold text-primary">{t("reps_form_done")}</h3>
+              <p className="mt-2 text-muted-foreground">{t("reps_form_done_msg")}</p>
             </div>
           ) : (
             <form className="mt-8 grid gap-4 rounded-lg border border-border bg-card p-6" onSubmit={onSubmit}>
-              <Field label="Name" name="name" required />
-              <Field label="Role / Office" name="role" placeholder="e.g. Chief of Staff, MP Office" required />
-              <Field label="Constituency" name="constituency" required />
-              <Field label="Email" name="email" type="email" required />
+              <Field label={t("reps_form_name")} name="name" required />
+              <Field label={t("reps_form_role")} name="role" placeholder={t("reps_form_role_ph")} required />
+              <Field label={t("reps_form_constituency")} name="constituency" required />
+              <Field label={t("reps_form_email")} name="email" type="email" required />
               <label className="block">
-                <span className="text-sm font-medium">Message</span>
+                <span className="text-sm font-medium">{t("reps_form_message")}</span>
                 <textarea
                   name="message"
                   rows={4}
@@ -102,10 +100,10 @@ function ForReps() {
                 disabled={status === "submitting"}
                 className="mt-2 inline-flex justify-center rounded-md bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 disabled:opacity-60"
               >
-                {status === "submitting" ? "Sending…" : "Send inquiry"}
+                {status === "submitting" ? t("reps_form_submitting") : t("reps_form_submit")}
               </button>
               <p className="text-xs text-muted-foreground">
-                Or email us directly at <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>.
+                {t("reps_form_or_email")} <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>.
               </p>
             </form>
           )}
