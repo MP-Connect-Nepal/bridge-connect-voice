@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
@@ -73,12 +73,12 @@ function HowItWorks() {
 
       <Section className="text-center">
         <h2 className="font-serif text-3xl font-semibold text-primary">Ready to submit your request?</h2>
-        <a
-          href="#google-form-link"
-          className="mt-6 inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-medium hover:opacity-90 transition"
+        <Link
+          to="/request-call"
+          className="mt-6 inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3 font-semibold hover:opacity-90 transition"
         >
           Request a Call with Your MP →
-        </a>
+        </Link>
       </Section>
     </SiteLayout>
   );

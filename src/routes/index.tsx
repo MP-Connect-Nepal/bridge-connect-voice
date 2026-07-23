@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Section, Eyebrow, TrustBadge } from "@/components/ui-bits";
 
+const ctaClasses = "inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3.5 text-base font-semibold hover:opacity-90 transition";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -45,12 +47,9 @@ function Home() {
             personally arranging video calls with the MP who represents you.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <a
-              href="#google-form-link"
-              className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3.5 text-base font-medium hover:opacity-90 transition"
-            >
+            <Link to="/request-call" className={ctaClasses}>
               Request a Call with Your MP →
-            </a>
+            </Link>
             <Link
               to="/how-it-works"
               className="inline-flex items-center justify-center rounded-md border border-border bg-card px-6 py-3.5 text-base font-medium hover:bg-secondary transition"
@@ -115,12 +114,12 @@ function Home() {
           <p className="mt-3 text-primary-foreground/80 max-w-xl mx-auto">
             Requesting a call takes about two minutes. There is no cost.
           </p>
-          <a
-            href="#google-form-link"
-            className="mt-6 inline-flex items-center justify-center rounded-md bg-background text-primary px-6 py-3 text-base font-semibold hover:bg-background/90 transition"
+          <Link
+            to="/request-call"
+            className="mt-6 inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3 text-base font-semibold hover:opacity-90 transition"
           >
             Request a Call with Your MP →
-          </a>
+          </Link>
         </div>
       </Section>
     </SiteLayout>
