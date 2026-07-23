@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RequestCallRouteImport } from './routes/request-call'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as ForRepresentativesRouteImport } from './routes/for-representatives'
@@ -20,6 +21,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RequestCallRoute = RequestCallRouteImport.update({
+  id: '/request-call',
+  path: '/request-call',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/for-representatives': typeof ForRepresentativesRoute
   '/get-involved': typeof GetInvolvedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/request-call': typeof RequestCallRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/for-representatives': typeof ForRepresentativesRoute
   '/get-involved': typeof GetInvolvedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/request-call': typeof RequestCallRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/for-representatives': typeof ForRepresentativesRoute
   '/get-involved': typeof GetInvolvedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/request-call': typeof RequestCallRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/for-representatives'
     | '/get-involved'
     | '/how-it-works'
+    | '/request-call'
     | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/for-representatives'
     | '/get-involved'
     | '/how-it-works'
+    | '/request-call'
     | '/sitemap.xml'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/for-representatives'
     | '/get-involved'
     | '/how-it-works'
+    | '/request-call'
     | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   ForRepresentativesRoute: typeof ForRepresentativesRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  RequestCallRoute: typeof RequestCallRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/request-call': {
+      id: '/request-call'
+      path: '/request-call'
+      fullPath: '/request-call'
+      preLoaderRoute: typeof RequestCallRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForRepresentativesRoute: ForRepresentativesRoute,
   GetInvolvedRoute: GetInvolvedRoute,
   HowItWorksRoute: HowItWorksRoute,
+  RequestCallRoute: RequestCallRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
