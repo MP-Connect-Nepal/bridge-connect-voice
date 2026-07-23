@@ -13,6 +13,8 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -23,6 +25,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-crimson: var(--crimson);
   --color-border: var(--border);
+  --color-input: var(--input);
   --color-ring: var(--ring);
   --font-sans: "Inter", "Noto Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Source Serif 4", ui-serif, Georgia, serif;
@@ -30,24 +33,27 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.985 0.005 90);
-  --foreground: oklch(0.22 0.03 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.03 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.03 250);
-  --primary: oklch(0.36 0.09 250);
-  --primary-foreground: oklch(0.985 0.005 90);
-  --secondary: oklch(0.95 0.015 240);
-  --secondary-foreground: oklch(0.28 0.05 250);
-  --muted: oklch(0.955 0.01 240);
-  --muted-foreground: oklch(0.48 0.02 250);
-  --accent: oklch(0.93 0.03 240);
-  --accent-foreground: oklch(0.28 0.05 250);
-  --crimson: oklch(0.52 0.17 22);
-  --border: oklch(0.9 0.015 240);
-  --input: oklch(0.9 0.015 240);
-  --ring: oklch(0.36 0.09 250);
+
+  /* Palette: Himalaya Blue #1C3D5A, Nepal Crimson #DC143C,
+     Warm Ivory #F7F4EF, Slate Charcoal #2B2B2B */
+  --background: #F7F4EF;
+  --foreground: #2B2B2B;
+  --card: #FFFFFF;
+  --card-foreground: #2B2B2B;
+  --popover: #FFFFFF;
+  --popover-foreground: #2B2B2B;
+  --primary: #1C3D5A;
+  --primary-foreground: #F7F4EF;
+  --secondary: #ECE7DC;
+  --secondary-foreground: #1C3D5A;
+  --muted: #ECE7DC;
+  --muted-foreground: #6B6B6B;
+  --accent: #E6DFD1;
+  --accent-foreground: #1C3D5A;
+  --crimson: #DC143C;
+  --border: #E3DED2;
+  --input: #E3DED2;
+  --ring: #1C3D5A;
 }
 
 @layer base {

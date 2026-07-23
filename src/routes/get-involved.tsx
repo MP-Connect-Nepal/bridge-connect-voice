@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
+import { submitVolunteer } from "@/lib/form-submit.functions";
+
+const CONTACT_EMAIL = "suunil428@gmail.com";
 
 export const Route = createFileRoute("/get-involved")({
   head: () => ({
@@ -16,7 +20,33 @@ export const Route = createFileRoute("/get-involved")({
 });
 
 function GetInvolved() {
-  const [submitted, setSubmitted] = useState(false);
+  const submit = useServerFn(submitVolunteer);
+  const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    setStatus("submitting");
+    setError(null);
+    try {
+      await submit({
+        data: {
+          fullName: String(f.get("name") ?? ""),
+          email: String(f.get("email") ?? ""),
+          constituency: String(f.get("constituency") ?? ""),
+          role: String(f.get("role") ?? ""),
+          notes: String(f.get("notes") ?? ""),
+        },
+      });
+      setStatus("done");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+      setError("Sorry — we couldn't submit your response just now. Please try again.");
+    }
+  }
+
   return (
     <SiteLayout>
       <PageHeader
@@ -40,24 +70,21 @@ function GetInvolved() {
         </div>
       </Section>
 
-      <section className="bg-secondary/50 border-y border-border">
+      <section id="join-us" className="bg-secondary/50 border-y border-border">
         <div className="mx-auto max-w-3xl px-4 py-16 md:py-20">
           <h2 className="font-serif text-3xl font-semibold text-primary">Sign up to volunteer</h2>
           <p className="mt-3 text-foreground/80">Tell us a little about yourself and how you'd like to help. We'll be in touch within a week.</p>
 
-          {submitted ? (
+          {status === "done" ? (
             <div className="mt-8 rounded-lg border border-border bg-card p-8 text-center">
               <h3 className="font-serif text-xl font-semibold text-primary">धन्यवाद — Thank you!</h3>
-              <p className="mt-2 text-muted-foreground">Your response has been noted. We'll reach out soon.</p>
+              <p className="mt-2 text-muted-foreground">
+                Your response has been noted. We'll reach out soon. In the meantime, feel free to email us at{" "}
+                <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>.
+              </p>
             </div>
           ) : (
-            <form
-              className="mt-8 grid gap-4 rounded-lg border border-border bg-card p-6"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSubmitted(true);
-              }}
-            >
+            <form className="mt-8 grid gap-4 rounded-lg border border-border bg-card p-6" onSubmit={onSubmit}>
               <VField label="Full name" name="name" required />
               <VField label="Email" name="email" type="email" required />
               <VField label="Constituency (or district)" name="constituency" required />
@@ -66,9 +93,10 @@ function GetInvolved() {
                 <select
                   name="role"
                   required
+                  defaultValue=""
                   className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
                 >
-                  <option value="">Choose one…</option>
+                  <option value="" disabled>Choose one…</option>
                   <option>Review submissions</option>
                   <option>Coordinate outreach</option>
                   <option>Become a constituency lead</option>
@@ -84,11 +112,13 @@ function GetInvolved() {
                   className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
                 />
               </label>
+              {error && <p className="text-sm text-crimson">{error}</p>}
               <button
                 type="submit"
-                className="mt-2 inline-flex justify-center rounded-md bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90"
+                disabled={status === "submitting"}
+                className="mt-2 inline-flex justify-center rounded-md bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 disabled:opacity-60"
               >
-                Submit
+                {status === "submitting" ? "Submitting…" : "Submit"}
               </button>
               <p className="text-xs text-muted-foreground">We use your details only to coordinate with you as a volunteer.</p>
             </form>
