@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
+import logoAsset from "@/assets/mpconnectnepal-logo.png.asset.json";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -9,6 +10,8 @@ const nav = [
   { to: "/get-involved", label: "Get Involved" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+const CONTACT_EMAIL = "suunil428@gmail.com";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -24,11 +27,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:flex lg:justify-between">
           <Link to="/" className="flex items-center gap-2 min-w-0" onClick={() => setOpen(false)}>
-            <span className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground shrink-0">
-              <span className="font-serif font-semibold">M</span>
-            </span>
+            <img
+              src={logoAsset.url}
+              alt="MPConnectNepal logo"
+              className="h-10 w-10 rounded-md object-contain bg-secondary shrink-0"
+            />
             <span className="flex flex-col leading-tight min-w-0">
-              <span className="font-serif text-base font-semibold truncate">MPConnectNepal</span>
+              <span className="font-serif text-base font-semibold text-primary truncate">MPConnectNepal</span>
               <span className="text-[10px] uppercase tracking-wider text-muted-foreground truncate">
                 Independent · Non-partisan
               </span>
@@ -50,12 +55,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
-              href="#google-form-link"
-              className="hidden sm:inline-flex items-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:opacity-90 transition"
+            <Link
+              to="/request-call"
+              className="hidden sm:inline-flex items-center rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition"
             >
               Request a Call
-            </a>
+            </Link>
             <button
               aria-label="Toggle menu"
               aria-expanded={open}
@@ -86,13 +91,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   {n.label}
                 </Link>
               ))}
-              <a
-                href="#google-form-link"
-                className="mt-2 mb-3 inline-flex justify-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium"
+              <Link
+                to="/request-call"
+                className="mt-2 mb-3 inline-flex justify-center rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold"
                 onClick={() => setOpen(false)}
               >
                 Request a Call
-              </a>
+              </Link>
             </nav>
           </div>
         )}
@@ -106,8 +111,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="grid place-items-center h-8 w-8 rounded-md bg-primary text-primary-foreground font-serif">M</span>
-              <span className="font-serif font-semibold">MPConnectNepal</span>
+              <img src={logoAsset.url} alt="" className="h-9 w-9 rounded-md object-contain" />
+              <span className="font-serif font-semibold text-primary">MPConnectNepal</span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
               An independent, non-partisan civic nonprofit connecting Nepali citizens with
@@ -127,22 +132,22 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link to="/get-involved" className="text-foreground/80 hover:text-primary">
+                  Join Us
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h4 className="text-sm font-semibold mb-3">Contact</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="mailto:hello@mpconnectnepal.org" className="hover:text-primary">
-                  hello@mpconnectnepal.org
+                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-primary">
+                  {CONTACT_EMAIL}
                 </a>
               </li>
               <li>Kathmandu, Nepal</li>
-              <li className="flex gap-3 pt-2">
-                <a href="#" className="hover:text-primary">Twitter</a>
-                <a href="#" className="hover:text-primary">Facebook</a>
-                <a href="#" className="hover:text-primary">LinkedIn</a>
-              </li>
             </ul>
           </div>
         </div>

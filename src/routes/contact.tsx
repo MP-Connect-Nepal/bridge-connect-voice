@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
 
+const CONTACT_EMAIL = "suunil428@gmail.com";
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
@@ -25,9 +27,9 @@ function Contact() {
 
       <Section>
         <div className="grid gap-6 md:grid-cols-3">
-          <ContactCard title="General" email="hello@mpconnectnepal.org" desc="Citizens, questions, or anything else." />
-          <ContactCard title="MP offices" email="partners@mpconnectnepal.org" desc="Partnership and pilot session inquiries." />
-          <ContactCard title="Media" email="press@mpconnectnepal.org" desc="Interviews, coverage, and press inquiries." />
+          <ContactCard title="General" desc="Citizens, questions, or anything else." />
+          <ContactCard title="MP offices" desc="Partnership and pilot session inquiries." />
+          <ContactCard title="Media" desc="Interviews, coverage, and press inquiries." />
         </div>
 
         <div className="mt-12 rounded-lg border border-border bg-card p-6 md:p-8">
@@ -43,13 +45,13 @@ function Contact() {
   );
 }
 
-function ContactCard({ title, email, desc }: { title: string; email: string; desc: string }) {
+function ContactCard({ title, desc }: { title: string; desc: string }) {
   return (
     <div className="rounded-lg border border-border bg-card p-6">
       <h3 className="font-serif text-lg font-semibold text-primary">{title}</h3>
       <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
-      <a href={`mailto:${email}`} className="mt-4 inline-block text-sm font-medium text-crimson hover:underline break-all">
-        {email}
+      <a href={`mailto:${CONTACT_EMAIL}`} className="mt-4 inline-block text-sm font-medium text-crimson hover:underline break-all">
+        {CONTACT_EMAIL}
       </a>
     </div>
   );
