@@ -1,7 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import logoAsset from "@/assets/mpconnectnepal-logo.png.asset.json";
 import { useLang, type Lang } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth-context";
+import { useContent } from "@/lib/content-hooks";
 
 const navItems = [
   { to: "/", key: "nav_home" },
@@ -9,10 +11,9 @@ const navItems = [
   { to: "/about", key: "nav_about" },
   { to: "/for-representatives", key: "nav_reps" },
   { to: "/get-involved", key: "nav_involved" },
+  { to: "/wall", key: "nav_wall" },
   { to: "/contact", key: "nav_contact" },
 ] as const;
-
-const CONTACT_EMAIL = "suunil428@gmail.com";
 
 function LangToggle({ className = "" }: { className?: string }) {
   const { lang, setLang, t } = useLang();
@@ -44,9 +45,40 @@ function LangToggle({ className = "" }: { className?: string }) {
   );
 }
 
+function UserMenu() {
+  const { user, isAdmin, profile, signOut } = useAuth();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const { t } = useLang();
+  if (!user) {
+    return (
+      <Link to="/auth" className="inline-flex items-center rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium hover:bg-secondary">
+        {t("nav_signin")}
+      </Link>
+    );
+  }
+  const label = (profile?.display_name || user.email || "U").slice(0, 1).toUpperCase();
+  return (
+    <div className="relative">
+      <button onClick={() => setOpen((v) => !v)} className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold">
+        {label}
+      </button>
+      {open && (
+        <div className="absolute right-0 mt-2 w-44 rounded-md border border-border bg-card shadow-md z-50 py-1 text-sm">
+          <div className="px-3 py-2 text-xs text-muted-foreground truncate">{profile?.display_name || user.email}</div>
+          <button onClick={() => { setOpen(false); navigate({ to: "/account" }); }} className="block w-full text-left px-3 py-2 hover:bg-secondary">{t("nav_account")}</button>
+          {isAdmin && <button onClick={() => { setOpen(false); navigate({ to: "/admin" }); }} className="block w-full text-left px-3 py-2 hover:bg-secondary">{t("nav_admin")}</button>}
+          <button onClick={async () => { setOpen(false); await signOut(); navigate({ to: "/" }); }} className="block w-full text-left px-3 py-2 hover:bg-secondary">{t("nav_signout")}</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const { t } = useLang();
+  const contactEmail = useContent("contact_email", "suunil428@gmail.com");
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -88,6 +120,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
           <div className="flex items-center gap-2">
             <LangToggle />
+            <UserMenu />
             <Link
               to="/request-call"
               className="hidden sm:inline-flex items-center rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition"
@@ -171,8 +204,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <h4 className="text-sm font-semibold mb-3">{t("footer_contact")}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-primary">
-                  {CONTACT_EMAIL}
+                <a href={`mailto:${contactEmail}`} className="hover:text-primary">
+                  {contactEmail}
                 </a>
               </li>
               <li>{t("footer_location")}</li>

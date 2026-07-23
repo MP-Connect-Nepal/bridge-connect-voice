@@ -4,6 +4,8 @@ import { PageHeader, Section, Eyebrow } from "@/components/ui-bits";
 import sunilAsset from "@/assets/sunil-chaudhary.jpg.asset.json";
 import himalAsset from "@/assets/himal-subedi.png.asset.json";
 import { useLang } from "@/lib/i18n";
+import { useContent, useImageOverride } from "@/lib/content-hooks";
+import { useSignedUrl } from "@/lib/signed-url";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -19,6 +21,12 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   const { t } = useLang();
+  const founderBio = useContent("about_founder_bio", "");
+  const programBio = useContent("about_program_bio", "");
+  const founderImg = useImageOverride("about_founder");
+  const programImg = useImageOverride("about_program");
+  const founderUrl = useSignedUrl("site-assets", founderImg.data?.storage_path) ?? sunilAsset.url;
+  const programUrl = useSignedUrl("site-assets", programImg.data?.storage_path) ?? himalAsset.url;
   return (
     <SiteLayout>
       <PageHeader eyebrow={t("about_eyebrow")} title={t("about_title")} lead={t("about_lead")} />
@@ -53,16 +61,15 @@ function About() {
             <div className="rounded-lg border border-border bg-card p-6 md:p-8">
               <div className="flex flex-col sm:flex-row gap-6">
                 <img
-                  src={sunilAsset.url}
+                  src={founderUrl}
                   alt="Sunil K. Chaudhary"
                   className="h-32 w-32 rounded-full object-cover border border-border shrink-0"
                 />
                 <div>
                   <h3 className="font-serif text-xl font-semibold text-primary">Sunil K. Chaudhary</h3>
                   <p className="text-sm text-crimson font-medium">{t("about_founder_role")}</p>
-                  <div className="mt-4 space-y-3 text-sm text-foreground/80 leading-relaxed">
-                    <p>{t("about_bio_p1")}</p>
-                    <p>{t("about_bio_p2")}</p>
+                  <div className="mt-4 space-y-3 text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap">
+                    {founderBio ? <p>{founderBio}</p> : (<><p>{t("about_bio_p1")}</p><p>{t("about_bio_p2")}</p></>)}
                   </div>
                 </div>
               </div>
@@ -70,12 +77,13 @@ function About() {
 
             <div className="rounded-lg border border-border bg-card p-6 text-center">
               <img
-                src={himalAsset.url}
+                src={programUrl}
                 alt="Himal Subedi"
                 className="mx-auto h-28 w-28 rounded-full object-cover border border-border"
               />
               <h3 className="mt-4 font-serif text-lg font-semibold text-primary">Himal Subedi</h3>
               <p className="text-sm text-crimson font-medium">{t("about_associate_role")}</p>
+              {programBio && <p className="mt-3 text-sm text-foreground/80 whitespace-pre-wrap">{programBio}</p>}
             </div>
           </div>
 
