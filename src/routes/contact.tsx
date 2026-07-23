@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
+import { useLang } from "@/lib/i18n";
 
 const CONTACT_EMAIL = "suunil428@gmail.com";
 
@@ -17,27 +18,24 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
+  const { t } = useLang();
   return (
     <SiteLayout>
-      <PageHeader
-        eyebrow="Contact"
-        title="Get in touch."
-        lead="Questions, ideas, or want to partner with us? Reach out — we read every message."
-      />
+      <PageHeader eyebrow={t("contact_eyebrow")} title={t("contact_title")} lead={t("contact_lead")} />
 
       <Section>
         <div className="grid gap-6 md:grid-cols-3">
-          <ContactCard title="General" desc="Citizens, questions, or anything else." />
-          <ContactCard title="MP offices" desc="Partnership and pilot session inquiries." />
-          <ContactCard title="Media" desc="Interviews, coverage, and press inquiries." />
+          <ContactCard title={t("contact_general")} desc={t("contact_general_d")} />
+          <ContactCard title={t("contact_mp")} desc={t("contact_mp_d")} />
+          <ContactCard title={t("contact_media")} desc={t("contact_media_d")} />
         </div>
 
         <div className="mt-12 rounded-lg border border-border bg-card p-6 md:p-8">
-          <h2 className="font-serif text-xl font-semibold text-primary">Our commitments to you</h2>
+          <h2 className="font-serif text-xl font-semibold text-primary">{t("contact_commit_title")}</h2>
           <ul className="mt-4 space-y-2 text-sm text-foreground/80">
-            <li>• We reply to every message within 5 working days.</li>
-            <li>• We never share your contact details with third parties.</li>
-            <li>• MPConnectNepal is an independent, non-partisan nonprofit — not affiliated with any political party or the Government of Nepal.</li>
+            <li>• {t("contact_commit_1")}</li>
+            <li>• {t("contact_commit_2")}</li>
+            <li>• {t("contact_commit_3")}</li>
           </ul>
         </div>
       </Section>

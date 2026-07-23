@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
@@ -19,30 +20,26 @@ export const Route = createFileRoute("/how-it-works")({
   component: HowItWorks,
 });
 
-const steps = [
-  { t: "You submit a request", d: "Fill out a short form with your name, contact info, constituency, and the topic or question you want to raise." },
-  { t: "We review and group by constituency", d: "Our team reads every submission and organizes people by the constituency they live in, so your MP hears a clear signal — not scattered noise." },
-  { t: "We reach out to your MP's office", d: "Once we have enough interest from a constituency, we formally request time with the MP on your behalf." },
-  { t: "A shared video call is scheduled", d: "We host the call on Google Meet with the MP, the participating citizens, and an MPConnectNepal representative to keep things organized." },
-  { t: "Can't attend? We relay for you", d: "If a live call doesn't work for you, we'll present your question or idea to the MP on your behalf and share the response back with you." },
-];
-
-const faqs = [
-  { q: "Is this free?", a: "Yes. MPConnectNepal is a nonprofit initiative. Citizens are never charged to submit a request or participate in a call." },
-  { q: "Will my MP definitely respond?", a: "We can't guarantee a response from every MP — participation is at their discretion. What we do guarantee is that your request is organized, presented professionally, and delivered to the right office." },
-  { q: "How long does it take?", a: "It depends on your constituency and your MP's availability. Some calls are arranged within a few weeks; others take longer. We'll keep you updated at every stage." },
-  { q: "Is my information kept private?", a: "Yes. We only share your details with your MP's office in the context of arranging a call. We do not sell, publish, or share personal data with third parties." },
-  { q: "Who is behind MPConnectNepal?", a: "MPConnectNepal is run by an independent, non-partisan team of Nepali citizens who believe democracy works better when representatives can actually hear from the people they represent." },
-];
-
 function HowItWorks() {
+  const { t } = useLang();
+  const steps = [
+    { t: t("how_s1_t"), d: t("how_s1_d") },
+    { t: t("how_s2_t"), d: t("how_s2_d") },
+    { t: t("how_s3_t"), d: t("how_s3_d") },
+    { t: t("how_s4_t"), d: t("how_s4_d") },
+    { t: t("how_s5_t"), d: t("how_s5_d") },
+  ];
+  const faqs = [
+    { q: t("faq_q1"), a: t("faq_a1") },
+    { q: t("faq_q2"), a: t("faq_a2") },
+    { q: t("faq_q3"), a: t("faq_a3") },
+    { q: t("faq_q4"), a: t("faq_a4") },
+    { q: t("faq_q5"), a: t("faq_a5") },
+  ];
+
   return (
     <SiteLayout>
-      <PageHeader
-        eyebrow="The process"
-        title="How MPConnectNepal works."
-        lead="From the moment you submit a request to the moment you speak with your MP — here's exactly what happens."
-      />
+      <PageHeader eyebrow={t("how_eyebrow")} title={t("how_title")} lead={t("how_lead")} />
 
       <Section className="pt-6">
         <ol className="space-y-6">
@@ -62,7 +59,7 @@ function HowItWorks() {
 
       <section className="bg-secondary/50 border-y border-border">
         <div className="mx-auto max-w-3xl px-4 py-16 md:py-20">
-          <h2 className="font-serif text-3xl md:text-4xl font-semibold text-primary">Frequently asked questions</h2>
+          <h2 className="font-serif text-3xl md:text-4xl font-semibold text-primary">{t("how_faq")}</h2>
           <div className="mt-8 divide-y divide-border rounded-lg border border-border bg-card">
             {faqs.map((f) => (
               <FaqItem key={f.q} q={f.q} a={f.a} />
@@ -72,12 +69,12 @@ function HowItWorks() {
       </section>
 
       <Section className="text-center">
-        <h2 className="font-serif text-3xl font-semibold text-primary">Ready to submit your request?</h2>
+        <h2 className="font-serif text-3xl font-semibold text-primary">{t("how_ready")}</h2>
         <Link
           to="/request-call"
           className="mt-6 inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3 font-semibold hover:opacity-90 transition"
         >
-          Request a Call with Your MP →
+          {t("cta_request_arrow")}
         </Link>
       </Section>
     </SiteLayout>

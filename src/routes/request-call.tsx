@@ -5,6 +5,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
 import { MPCombobox } from "@/components/MPCombobox";
 import { submitRequestCall } from "@/lib/form-submit.functions";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/request-call")({
   head: () => ({
@@ -19,6 +20,7 @@ export const Route = createFileRoute("/request-call")({
 });
 
 function RequestCall() {
+  const { t } = useLang();
   const submit = useServerFn(submitRequestCall);
   const [mp, setMp] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
@@ -28,7 +30,7 @@ function RequestCall() {
     e.preventDefault();
     setError(null);
     if (!mp) {
-      setError("Please select the MP you want to talk with.");
+      setError(t("rc_mp_missing"));
       return;
     }
     const f = new FormData(e.currentTarget);
@@ -50,34 +52,28 @@ function RequestCall() {
     } catch (err) {
       console.error(err);
       setStatus("error");
-      setError("Sorry — we couldn't submit your request just now. Please try again in a moment.");
+      setError(err instanceof Error ? err.message : t("rc_error_generic"));
     }
   }
 
   return (
     <SiteLayout>
-      <PageHeader
-        eyebrow="Request a call"
-        title="Request a Call with Your MP."
-        lead="Fill out the form below. Our team will review your submission and coordinate an organized video call with your representative."
-      />
+      <PageHeader eyebrow={t("rc_eyebrow")} title={t("rc_title")} lead={t("rc_lead")} />
 
       <Section className="pt-6">
         <div className="mx-auto max-w-2xl">
           {status === "done" ? (
             <div className="rounded-lg border border-border bg-card p-8 text-center">
-              <h2 className="font-serif text-2xl font-semibold text-primary">Thank you.</h2>
-              <p className="mt-3 text-foreground/80">
-                We've received your request and will be in touch as we coordinate with your representative.
-              </p>
+              <h2 className="font-serif text-2xl font-semibold text-primary">{t("rc_done_title")}</h2>
+              <p className="mt-3 text-foreground/80">{t("rc_done_msg")}</p>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="grid gap-5 rounded-lg border border-border bg-card p-6 md:p-8">
-              <Field label="Full Name" name="fullName" required />
+              <Field label={t("rc_fullname")} name="fullName" required />
 
               <label className="block">
                 <span className="text-sm font-medium">
-                  Complete Address <span className="text-crimson">*</span>
+                  {t("rc_address")} <span className="text-crimson">*</span>
                 </span>
                 <textarea
                   name="address"
@@ -86,14 +82,12 @@ function RequestCall() {
                   maxLength={500}
                   className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
                 />
-                <span className="mt-1 block text-xs text-muted-foreground">
-                  This helps us confirm your constituency.
-                </span>
+                <span className="mt-1 block text-xs text-muted-foreground">{t("rc_address_hint")}</span>
               </label>
 
               <label className="block">
                 <span className="text-sm font-medium">
-                  MP You Want to Talk With <span className="text-crimson">*</span>
+                  {t("rc_mp")} <span className="text-crimson">*</span>
                 </span>
                 <div className="mt-1">
                   <MPCombobox value={mp} onChange={setMp} />
@@ -102,7 +96,7 @@ function RequestCall() {
 
               <label className="block">
                 <span className="text-sm font-medium">
-                  Your Question or Idea <span className="text-crimson">*</span>
+                  {t("rc_question")} <span className="text-crimson">*</span>
                 </span>
                 <textarea
                   name="question"
@@ -111,20 +105,18 @@ function RequestCall() {
                   maxLength={2000}
                   className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
                 />
-                <span className="mt-1 block text-xs text-muted-foreground">
-                  Briefly describe the problem or solution you'd like to discuss.
-                </span>
+                <span className="mt-1 block text-xs text-muted-foreground">{t("rc_question_hint")}</span>
               </label>
 
               <div className="grid gap-5 md:grid-cols-2">
-                <Field label="Email Address" name="email" type="email" required />
-                <Field label="Phone Number" name="phone" type="tel" required />
+                <Field label={t("rc_email")} name="email" type="email" required />
+                <Field label={t("rc_phone")} name="phone" type="tel" required />
               </div>
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="block">
                   <span className="text-sm font-medium">
-                    Best Time to Reach You <span className="text-crimson">*</span>
+                    {t("rc_besttime")} <span className="text-crimson">*</span>
                   </span>
                   <select
                     name="bestTime"
@@ -132,13 +124,13 @@ function RequestCall() {
                     defaultValue=""
                     className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
                   >
-                    <option value="" disabled>Choose one…</option>
-                    <option>Morning</option>
-                    <option>Afternoon</option>
-                    <option>Evening</option>
+                    <option value="" disabled>{t("rc_besttime_choose")}</option>
+                    <option>{t("rc_time_morning")}</option>
+                    <option>{t("rc_time_afternoon")}</option>
+                    <option>{t("rc_time_evening")}</option>
                   </select>
                 </label>
-                <Field label="Best Way to Reach You (note)" name="timeNote" placeholder="e.g. Call on WhatsApp after 5pm" />
+                <Field label={t("rc_besttime_note")} name="timeNote" placeholder={t("rc_besttime_note_ph")} />
               </div>
 
               {error && (
@@ -152,12 +144,10 @@ function RequestCall() {
                 disabled={status === "submitting"}
                 className="mt-2 inline-flex justify-center rounded-md bg-crimson text-white px-6 py-3 text-sm font-semibold hover:opacity-90 disabled:opacity-60 transition"
               >
-                {status === "submitting" ? "Submitting…" : "Submit request"}
+                {status === "submitting" ? t("rc_submitting") : t("rc_submit")}
               </button>
 
-              <p className="text-xs text-muted-foreground">
-                Your information is used only to arrange your call and will not be shared publicly or with any third party outside this process.
-              </p>
+              <p className="text-xs text-muted-foreground">{t("rc_privacy")}</p>
             </form>
           )}
         </div>

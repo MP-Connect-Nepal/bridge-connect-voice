@@ -1,20 +1,52 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import logoAsset from "@/assets/mpconnectnepal-logo.png.asset.json";
+import { useLang, type Lang } from "@/lib/i18n";
 
-const nav = [
-  { to: "/", label: "Home" },
-  { to: "/how-it-works", label: "How It Works" },
-  { to: "/about", label: "About" },
-  { to: "/for-representatives", label: "For Representatives" },
-  { to: "/get-involved", label: "Get Involved" },
-  { to: "/contact", label: "Contact" },
+const navItems = [
+  { to: "/", key: "nav_home" },
+  { to: "/how-it-works", key: "nav_how" },
+  { to: "/about", key: "nav_about" },
+  { to: "/for-representatives", key: "nav_reps" },
+  { to: "/get-involved", key: "nav_involved" },
+  { to: "/contact", key: "nav_contact" },
 ] as const;
 
 const CONTACT_EMAIL = "suunil428@gmail.com";
 
+function LangToggle({ className = "" }: { className?: string }) {
+  const { lang, setLang, t } = useLang();
+  const next: Lang = lang === "en" ? "ne" : "en";
+  return (
+    <button
+      type="button"
+      onClick={() => setLang(next)}
+      aria-label={t("lang_switch_aria")}
+      className={`inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-secondary transition ${className}`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-3.5 w-3.5"
+        aria-hidden
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20" />
+      </svg>
+      <span>{t("lang_switch_label")}</span>
+    </button>
+  );
+}
+
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const { t } = useLang();
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -22,26 +54,26 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-primary focus:text-primary-foreground focus:px-3 focus:py-2 focus:rounded"
       >
-        Skip to content
+        {t("skip")}
       </a>
       <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:flex lg:justify-between">
-          <Link to="/" className="flex items-center gap-2 min-w-0" onClick={() => setOpen(false)}>
+          <Link to="/" className="flex items-center gap-3 min-w-0" onClick={() => setOpen(false)}>
             <img
               src={logoAsset.url}
               alt="MPConnectNepal logo"
-              className="h-10 w-10 rounded-md object-contain bg-secondary shrink-0"
+              className="h-14 w-14 rounded-md object-contain shrink-0"
             />
             <span className="flex flex-col leading-tight min-w-0">
-              <span className="font-serif text-base font-semibold text-primary truncate">MPConnectNepal</span>
+              <span className="font-serif text-lg font-semibold text-primary truncate">MPConnectNepal</span>
               <span className="text-[10px] uppercase tracking-wider text-muted-foreground truncate">
-                Independent · Non-partisan
+                {t("brand_tag")}
               </span>
             </span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
-            {nav.map((n) => (
+            {navItems.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
@@ -49,17 +81,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 activeProps={{ className: "px-3 py-2 text-sm rounded-md bg-secondary text-foreground font-medium" }}
                 activeOptions={{ exact: n.to === "/" }}
               >
-                {n.label}
+                {t(n.key)}
               </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
+            <LangToggle />
             <Link
               to="/request-call"
               className="hidden sm:inline-flex items-center rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition"
             >
-              Request a Call
+              {t("cta_request")}
             </Link>
             <button
               aria-label="Toggle menu"
@@ -79,7 +112,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         {open && (
           <div className="lg:hidden border-t border-border">
             <nav className="mx-auto max-w-6xl px-4 py-2 flex flex-col">
-              {nav.map((n) => (
+              {navItems.map((n) => (
                 <Link
                   key={n.to}
                   to={n.to}
@@ -88,7 +121,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   activeProps={{ className: "px-2 py-3 text-sm border-b border-border/60 last:border-b-0 font-semibold text-primary" }}
                   activeOptions={{ exact: n.to === "/" }}
                 >
-                  {n.label}
+                  {t(n.key)}
                 </Link>
               ))}
               <Link
@@ -96,7 +129,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 className="mt-2 mb-3 inline-flex justify-center rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold"
                 onClick={() => setOpen(false)}
               >
-                Request a Call
+                {t("cta_request")}
               </Link>
             </nav>
           </div>
@@ -111,50 +144,45 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <img src={logoAsset.url} alt="" className="h-9 w-9 rounded-md object-contain" />
+              <img src={logoAsset.url} alt="" className="h-10 w-10 rounded-md object-contain" />
               <span className="font-serif font-semibold text-primary">MPConnectNepal</span>
             </div>
-            <p className="mt-3 text-sm text-muted-foreground">
-              An independent, non-partisan civic nonprofit connecting Nepali citizens with
-              their elected representatives.
-            </p>
-            <p className="mt-3 text-xs text-muted-foreground">
-              Nonprofit registration: <span className="italic">pending</span>
-            </p>
+            <p className="mt-3 text-sm text-muted-foreground">{t("footer_desc")}</p>
+            <p className="mt-3 text-xs text-muted-foreground">{t("footer_reg")}</p>
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-3">Explore</h4>
+            <h4 className="text-sm font-semibold mb-3">{t("footer_explore")}</h4>
             <ul className="space-y-2 text-sm">
-              {nav.map((n) => (
+              {navItems.map((n) => (
                 <li key={n.to}>
                   <Link to={n.to} className="text-foreground/80 hover:text-primary">
-                    {n.label}
+                    {t(n.key)}
                   </Link>
                 </li>
               ))}
               <li>
                 <Link to="/get-involved" className="text-foreground/80 hover:text-primary">
-                  Join Us
+                  {t("footer_join")}
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-3">Contact</h4>
+            <h4 className="text-sm font-semibold mb-3">{t("footer_contact")}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-primary">
                   {CONTACT_EMAIL}
                 </a>
               </li>
-              <li>Kathmandu, Nepal</li>
+              <li>{t("footer_location")}</li>
             </ul>
           </div>
         </div>
         <div className="border-t border-border">
           <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-muted-foreground flex flex-col sm:flex-row gap-2 justify-between">
-            <span>© {new Date().getFullYear()} MPConnectNepal. All rights reserved.</span>
-            <span>Independent · Non-partisan · Not affiliated with any political party or the Government of Nepal.</span>
+            <span>© {new Date().getFullYear()} MPConnectNepal. {t("footer_rights")}</span>
+            <span>{t("footer_disclaimer")}</span>
           </div>
         </div>
       </footer>
