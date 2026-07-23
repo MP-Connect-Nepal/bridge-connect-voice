@@ -1,7 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import logoAsset from "@/assets/mpconnectnepal-logo.png.asset.json";
 import { useLang, type Lang } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth-context";
+import { useContent } from "@/lib/content-hooks";
 
 const navItems = [
   { to: "/", key: "nav_home" },
@@ -9,10 +11,9 @@ const navItems = [
   { to: "/about", key: "nav_about" },
   { to: "/for-representatives", key: "nav_reps" },
   { to: "/get-involved", key: "nav_involved" },
+  { to: "/wall", key: "nav_wall" },
   { to: "/contact", key: "nav_contact" },
 ] as const;
-
-const CONTACT_EMAIL = "suunil428@gmail.com";
 
 function LangToggle({ className = "" }: { className?: string }) {
   const { lang, setLang, t } = useLang();
