@@ -81,12 +81,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "MPConnectNepal is an independent, non-partisan nonprofit that connects Nepali citizens with their elected Members of Parliament through organized video calls.",
+          "An independent, non-partisan nonprofit that organizes video calls between Nepali citizens and their Members of Parliament.",
       },
-      { property: "og:title", content: "MPConnectNepal" },
-      { property: "og:description", content: "Your voice, delivered to your representative." },
+      { property: "og:title", content: "MPConnectNepal — Your voice, delivered to your representative" },
+      { property: "og:description", content: "An independent, non-partisan nonprofit that organizes video calls between Nepali citizens and their Members of Parliament." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "MPConnectNepal — Your voice, delivered to your representative" },
+      { name: "twitter:description", content: "An independent, non-partisan nonprofit that organizes video calls between Nepali citizens and their Members of Parliament." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5a5377a1-4041-4707-9908-39108e281ecb" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5a5377a1-4041-4707-9908-39108e281ecb" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

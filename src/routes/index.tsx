@@ -11,11 +11,11 @@ export const Route = createFileRoute("/")({
         content:
           "An independent, non-partisan nonprofit that organizes video calls between Nepali citizens and their Members of Parliament.",
       },
-      { property: "og:title", content: "MPConnectNepal" },
+      { property: "og:title", content: "MPConnectNepal — Your voice, delivered to your representative" },
       {
         property: "og:description",
         content:
-          "Submit your request, we group people by constituency, and we arrange a call with your MP.",
+          "An independent, non-partisan nonprofit that organizes video calls between Nepali citizens and their Members of Parliament.",
       },
     ],
   }),
