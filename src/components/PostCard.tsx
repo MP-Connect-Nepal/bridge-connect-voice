@@ -30,23 +30,27 @@ export function PostCard({ post }: { post: Post }) {
   const [showComments, setShowComments] = useState(false);
 
   const likes = useQuery({
-    queryKey: ["likes", post.id],
+    queryKey: ["likes", post.id, fp],
     queryFn: async () => {
-      const { data } = await supabase.from("post_likes").select("fingerprint").eq("post_id", post.id);
-      return data ?? [];
+      const [{ count }, { data: mine }] = await Promise.all([
+        supabase.from("post_likes").select("id", { count: "exact", head: true }).eq("post_id", post.id),
+        supabase.rpc("has_liked_post", { p_post_id: post.id, p_fingerprint: fp }),
+      ]);
+      return { count: count ?? 0, liked: Boolean(mine) };
     },
   });
-  const liked = (likes.data ?? []).some((l) => l.fingerprint === fp);
-  const count = likes.data?.length ?? 0;
+  const liked = likes.data?.liked ?? false;
+  const count = likes.data?.count ?? 0;
 
   async function toggleLike() {
     if (liked) {
-      await supabase.from("post_likes").delete().eq("post_id", post.id).eq("fingerprint", fp);
+      await supabase.rpc("unlike_post", { p_post_id: post.id, p_fingerprint: fp });
     } else {
       await supabase.from("post_likes").insert({ post_id: post.id, fingerprint: fp });
     }
     qc.invalidateQueries({ queryKey: ["likes", post.id] });
   }
+
 
   const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/wall#post-${post.id}` : "";
   const shareText = encodeURIComponent(`${post.title} — MPConnectNepal`);
