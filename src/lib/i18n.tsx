@@ -61,6 +61,7 @@ const dict = {
   footer_explore: { en: "Explore", ne: "अन्वेषण गर्नुहोस्" },
   footer_join: { en: "Join Us", ne: "हामीसँग जोडिनुहोस्" },
   footer_contact: { en: "Contact", ne: "सम्पर्क" },
+  footer_social: { en: "Follow us", ne: "हामीलाई फलो गर्नुहोस्" },
   footer_location: { en: "Kathmandu, Nepal", ne: "काठमाडौँ, नेपाल" },
   footer_rights: {
     en: "All rights reserved.",
