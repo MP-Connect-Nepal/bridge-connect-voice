@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Section, Eyebrow, TrustBadge } from "@/components/ui-bits";
+import { Reveal, Parallax } from "@/components/Reveal";
 import { useLang } from "@/lib/i18n";
 import heroImage from "@/assets/virtual-call.jpg.asset.json";
 import { useContent, useImageOverride } from "@/lib/content-hooks";
 import { useSignedUrl } from "@/lib/signed-url";
 
 const ctaClasses =
-  "inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3.5 text-base font-semibold hover:opacity-90 transition";
+  "btn-press inline-flex items-center justify-center rounded-full bg-crimson text-white px-7 py-3.5 text-base font-semibold shadow-[var(--shadow-soft)]";
 
 export const Route = createFileRoute("/")({
   head: () => ({
