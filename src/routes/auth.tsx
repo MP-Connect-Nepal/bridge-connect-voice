@@ -71,7 +71,7 @@ function AuthPage() {
   return (
     <SiteLayout>
       <Section className="py-12">
-        <div className="mx-auto max-w-md rounded-lg border border-border bg-card p-6">
+        <div className="mx-auto max-w-md card-modern p-6">
           <h1 className="font-serif text-2xl font-semibold text-primary">
             {mode === "signin" ? "Sign in" : "Create account"}
           </h1>

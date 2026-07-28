@@ -93,7 +93,7 @@ function SubmissionsTab() {
         ))}
       </div>
       {cur && (
-        <div className="overflow-x-auto rounded-lg border border-border bg-card">
+        <div className="overflow-x-auto card-modern">
           <table className="min-w-full text-sm">
             <thead className="bg-secondary/60">
               <tr>{cur.header.map((h, i) => <th key={i} className="px-3 py-2 text-left font-medium">{h}</th>)}</tr>
@@ -152,7 +152,7 @@ function ContentTab() {
           {EDITABLE_CONTENT.map(({ key, label, hint }) => {
             const v = state[key] ?? { en: "", ne: "" };
             return (
-              <div key={key} className="rounded-lg border border-border bg-card p-4">
+              <div key={key} className="card-modern p-4">
                 <div className="flex items-center justify-between gap-2">
                   <div>
                     <div className="font-medium text-sm">{label}</div>
@@ -233,7 +233,7 @@ function ImageEditor({ k, label }: { k: string; label: string }) {
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4">
+    <div className="card-modern p-4">
       <div className="font-medium text-sm mb-2">{label}</div>
       {url ? (
         <img src={url} alt="" className="aspect-video w-full object-cover rounded-md border border-border" />
@@ -303,7 +303,7 @@ function PostsTab() {
 
   return (
     <div className="grid gap-6">
-      <div className="rounded-lg border border-border bg-card p-4 grid gap-3">
+      <div className="card-modern p-4 grid gap-3">
         <h3 className="font-serif text-lg font-semibold">New post</h3>
         <input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
         <textarea placeholder="Short caption of the conversation…" rows={4} value={caption} onChange={(e) => setCaption(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
@@ -314,7 +314,7 @@ function PostsTab() {
       </div>
       <div className="grid gap-3">
         {(q.data ?? []).map((p) => (
-          <div key={p.id} className="rounded-lg border border-border bg-card p-4 flex items-center justify-between gap-3">
+          <div key={p.id} className="card-modern p-4 flex items-center justify-between gap-3">
             <div>
               <div className="font-medium">{p.title}</div>
               <div className="text-xs text-muted-foreground">{new Date(p.created_at).toLocaleString()}</div>

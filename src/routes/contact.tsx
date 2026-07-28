@@ -30,7 +30,7 @@ function Contact() {
           <ContactCard title={t("contact_media")} desc={t("contact_media_d")} />
         </div>
 
-        <div className="mt-12 rounded-lg border border-border bg-card p-6 md:p-8">
+        <div className="mt-12 card-modern p-6 md:p-8">
           <h2 className="font-serif text-xl font-semibold text-primary">{t("contact_commit_title")}</h2>
           <ul className="mt-4 space-y-2 text-sm text-foreground/80">
             <li>• {t("contact_commit_1")}</li>
@@ -45,7 +45,7 @@ function Contact() {
 
 function ContactCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="rounded-lg border border-border bg-card p-6">
+    <div className="card-modern p-6">
       <h3 className="font-serif text-lg font-semibold text-primary">{title}</h3>
       <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
       <a href={`mailto:${CONTACT_EMAIL}`} className="mt-4 inline-block text-sm font-medium text-crimson hover:underline break-all">

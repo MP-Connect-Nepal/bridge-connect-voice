@@ -95,7 +95,7 @@ function Home() {
             { n: "02", t: t("home_step2_t"), d: t("home_step2_d") },
             { n: "03", t: t("home_step3_t"), d: t("home_step3_d") },
           ].map((s) => (
-            <div key={s.n} className="rounded-lg border border-border bg-card p-6 hover:shadow-sm transition">
+            <div key={s.n} className="card-modern p-6 hover:shadow-sm transition">
               <div className="text-crimson font-serif text-2xl">{s.n}</div>
               <h3 className="mt-3 font-serif text-xl font-semibold">{s.t}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.d}</p>
@@ -121,7 +121,7 @@ function Home() {
       </section>
 
       <Section className="py-12 md:py-14">
-        <div className="rounded-lg border border-border bg-card p-6 md:p-8 text-center">
+        <div className="card-modern p-6 md:p-8 text-center">
           <p className="text-sm md:text-base text-foreground/80 max-w-3xl mx-auto">
             {disclaimer}
           </p>
