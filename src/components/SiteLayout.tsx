@@ -129,10 +129,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link
                 key={n.to}
                 to={n.to}
-                className="relative px-3 py-2 text-sm text-foreground/75 rounded-full hover:bg-secondary/70 hover:text-foreground transition"
+                className="relative whitespace-nowrap px-3 py-2 text-sm text-foreground/75 rounded-full hover:bg-secondary/70 hover:text-foreground transition"
                 activeProps={{
                   className:
-                    "relative px-3 py-2 text-sm rounded-full bg-secondary text-primary font-semibold shadow-[var(--shadow-soft)]",
+                    "relative whitespace-nowrap px-3 py-2 text-sm rounded-full bg-secondary text-primary font-semibold shadow-[var(--shadow-soft)]",
                 }}
                 activeOptions={{ exact: n.to === "/" }}
               >
