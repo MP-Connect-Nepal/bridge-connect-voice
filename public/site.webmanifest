@@ -1,0 +1,20 @@
+{
+  "name": "MPConnectNepal",
+  "short_name": "MPConnect",
+  "description": "An independent, non-partisan nonprofit that organizes video calls between Nepali citizens and their Members of Parliament.",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#1C3D5A",
+  "background_color": "#F7F4EF",
+  "display": "standalone"
+}
