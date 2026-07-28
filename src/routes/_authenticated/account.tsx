@@ -42,7 +42,7 @@ function AccountPage() {
     <SiteLayout>
       <PageHeader eyebrow="Account" title="Your account" lead={user?.email ?? ""} />
       <Section className="pt-4">
-        <div className="mx-auto max-w-lg rounded-lg border border-border bg-card p-6 grid gap-4">
+        <div className="mx-auto max-w-lg card-modern p-6 grid gap-4">
           <label className="block">
             <span className="text-sm font-medium">Display name</span>
             <input
@@ -54,7 +54,7 @@ function AccountPage() {
           </label>
           {msg && <div className="text-sm text-primary">{msg}</div>}
           <div className="flex flex-wrap gap-2">
-            <button onClick={save} className="rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold">
+            <button onClick={save} className="btn-press rounded-full bg-crimson text-white px-4 py-2 text-sm font-semibold">
               Save
             </button>
             {isAdmin && (

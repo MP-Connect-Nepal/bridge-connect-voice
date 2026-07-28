@@ -60,7 +60,7 @@ function ForReps() {
             { t: t("reps_b2_t"), d: t("reps_b2_d") },
             { t: t("reps_b3_t"), d: t("reps_b3_d") },
           ].map((b) => (
-            <div key={b.t} className="rounded-lg border border-border bg-card p-6">
+            <div key={b.t} className="card-modern p-6">
               <h3 className="font-serif text-lg font-semibold text-primary">{b.t}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{b.d}</p>
             </div>
@@ -74,12 +74,12 @@ function ForReps() {
           <p className="mt-3 text-foreground/80">{t("reps_partner_lead")}</p>
 
           {status === "done" ? (
-            <div className="mt-8 rounded-lg border border-border bg-card p-8 text-center">
+            <div className="mt-8 card-modern p-8 text-center">
               <h3 className="font-serif text-xl font-semibold text-primary">{t("reps_form_done")}</h3>
               <p className="mt-2 text-muted-foreground">{t("reps_form_done_msg")}</p>
             </div>
           ) : (
-            <form className="mt-8 grid gap-4 rounded-lg border border-border bg-card p-6" onSubmit={onSubmit}>
+            <form className="mt-8 grid gap-4 card-modern p-6" onSubmit={onSubmit}>
               <Field label={t("reps_form_name")} name="name" required />
               <Field label={t("reps_form_role")} name="role" placeholder={t("reps_form_role_ph")} required />
               <Field label={t("reps_form_constituency")} name="constituency" required />

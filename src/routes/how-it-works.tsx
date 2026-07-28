@@ -44,7 +44,7 @@ function HowItWorks() {
       <Section className="pt-6">
         <ol className="space-y-6">
           {steps.map((s, i) => (
-            <li key={s.t} className="grid grid-cols-[auto_1fr] gap-5 rounded-lg border border-border bg-card p-6">
+            <li key={s.t} className="grid grid-cols-[auto_1fr] gap-5 card-modern p-6">
               <div className="grid place-items-center h-10 w-10 rounded-full bg-primary text-primary-foreground font-serif font-semibold shrink-0">
                 {i + 1}
               </div>
@@ -60,7 +60,7 @@ function HowItWorks() {
       <section className="bg-secondary/50 border-y border-border">
         <div className="mx-auto max-w-3xl px-4 py-16 md:py-20">
           <h2 className="font-serif text-3xl md:text-4xl font-semibold text-primary">{t("how_faq")}</h2>
-          <div className="mt-8 divide-y divide-border rounded-lg border border-border bg-card">
+          <div className="mt-8 divide-y divide-border card-modern">
             {faqs.map((f) => (
               <FaqItem key={f.q} q={f.q} a={f.a} />
             ))}
@@ -72,7 +72,7 @@ function HowItWorks() {
         <h2 className="font-serif text-3xl font-semibold text-primary">{t("how_ready")}</h2>
         <Link
           to="/request-call"
-          className="mt-6 inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3 font-semibold hover:opacity-90 transition"
+          className="mt-6 inline-flex items-center justify-center btn-press rounded-full bg-crimson text-white px-6 py-3 font-semibold hover:opacity-90 transition"
         >
           {t("cta_request_arrow")}
         </Link>

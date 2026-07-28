@@ -60,7 +60,7 @@ function GetInvolved() {
             { t: t("gi_r2_t"), d: t("gi_r2_d") },
             { t: t("gi_r3_t"), d: t("gi_r3_d") },
           ].map((r) => (
-            <div key={r.t} className="rounded-lg border border-border bg-card p-6">
+            <div key={r.t} className="card-modern p-6">
               <h3 className="font-serif text-lg font-semibold text-primary">{r.t}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{r.d}</p>
             </div>
@@ -74,7 +74,7 @@ function GetInvolved() {
           <p className="mt-3 text-foreground/80">{t("gi_form_lead")}</p>
 
           {status === "done" ? (
-            <div className="mt-8 rounded-lg border border-border bg-card p-8 text-center">
+            <div className="mt-8 card-modern p-8 text-center">
               <h3 className="font-serif text-xl font-semibold text-primary">{t("gi_form_done_title")}</h3>
               <p className="mt-2 text-muted-foreground">
                 {t("gi_form_done_msg")}{" "}
@@ -82,7 +82,7 @@ function GetInvolved() {
               </p>
             </div>
           ) : (
-            <form className="mt-8 grid gap-4 rounded-lg border border-border bg-card p-6" onSubmit={onSubmit}>
+            <form className="mt-8 grid gap-4 card-modern p-6" onSubmit={onSubmit}>
               <VField label={t("gi_form_name")} name="name" required />
               <VField label={t("gi_form_email")} name="email" type="email" required />
               <VField label={t("gi_form_constituency")} name="constituency" required />

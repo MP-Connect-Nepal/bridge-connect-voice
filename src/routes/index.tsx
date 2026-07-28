@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Section, Eyebrow, TrustBadge } from "@/components/ui-bits";
+import { Reveal, Parallax } from "@/components/Reveal";
 import { useLang } from "@/lib/i18n";
 import heroImage from "@/assets/virtual-call.jpg.asset.json";
 import { useContent, useImageOverride } from "@/lib/content-hooks";
 import { useSignedUrl } from "@/lib/signed-url";
 
 const ctaClasses =
-  "inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3.5 text-base font-semibold hover:opacity-90 transition";
+  "btn-press inline-flex items-center justify-center rounded-full bg-crimson text-white px-7 py-3.5 text-base font-semibold shadow-[var(--shadow-soft)]";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,33 +47,38 @@ function Home() {
         <div
           aria-hidden
           className="absolute inset-0 -z-10"
-          style={{
-            background:
-              "linear-gradient(180deg, oklch(0.97 0.02 240) 0%, oklch(0.985 0.005 90) 100%)",
-          }}
+          style={{ background: "var(--gradient-hero)" }}
         />
-        <div className="mx-auto max-w-6xl px-4 pt-12 pb-16 md:pt-20 md:pb-24 grid gap-10 md:grid-cols-2 md:items-center">
-          <div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-40 -left-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-primary/10 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-40 right-0 -z-10 h-[24rem] w-[24rem] rounded-full bg-crimson/10 blur-3xl"
+        />
+        <div className="mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-28 md:pb-32 grid gap-12 md:gap-14 md:grid-cols-2 md:items-center">
+          <div className="enter-up">
             <TrustBadge />
-            <h1 className="mt-5 font-serif text-4xl sm:text-5xl md:text-[3.25rem] font-semibold text-primary leading-[1.05]">
+            <h1 className="mt-6 font-serif text-[2.6rem] sm:text-5xl md:text-[3.75rem] font-semibold text-primary leading-[1.03] tracking-tight">
               {heroTitle}
             </h1>
-            <p className="mt-5 text-lg text-foreground/70 max-w-xl">{heroLead}</p>
-            <div className="mt-7 flex flex-col sm:flex-row gap-3">
+            <p className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl leading-relaxed">{heroLead}</p>
+            <div className="mt-9 flex flex-col sm:flex-row gap-3">
               <Link to="/request-call" className={ctaClasses}>
                 {t("cta_request_arrow")}
               </Link>
               <Link
                 to="/how-it-works"
-                className="inline-flex items-center justify-center rounded-md border border-border bg-card px-6 py-3.5 text-base font-medium hover:bg-secondary transition"
+                className="btn-press inline-flex items-center justify-center rounded-full glass px-7 py-3.5 text-base font-medium"
               >
                 {t("how_link")}
               </Link>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">{t("home_hero_meta")}</p>
+            <p className="mt-5 text-xs text-muted-foreground">{t("home_hero_meta")}</p>
           </div>
-          <div className="relative">
-            <div className="aspect-[5/4] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm">
+          <Parallax speed={0.05} scale={0.03} className="relative">
+            <div className="media-frame aspect-[5/4] w-full bg-secondary">
               <img
                 src={heroSrc}
                 alt={t("hero_image_alt")}
@@ -80,61 +86,70 @@ function Home() {
                 loading="eager"
               />
             </div>
-          </div>
+          </Parallax>
         </div>
       </section>
 
       <Section>
         <Eyebrow>{t("home_how_eyebrow")}</Eyebrow>
-        <h2 className="mt-3 font-serif text-3xl md:text-4xl font-semibold text-primary">
+        <h2 className="mt-4 font-serif text-3xl md:text-5xl font-semibold text-primary">
           {t("home_how_title")}
         </h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {[
             { n: "01", t: t("home_step1_t"), d: t("home_step1_d") },
             { n: "02", t: t("home_step2_t"), d: t("home_step2_d") },
             { n: "03", t: t("home_step3_t"), d: t("home_step3_d") },
-          ].map((s) => (
-            <div key={s.n} className="rounded-lg border border-border bg-card p-6 hover:shadow-sm transition">
-              <div className="text-crimson font-serif text-2xl">{s.n}</div>
-              <h3 className="mt-3 font-serif text-xl font-semibold">{s.t}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.d}</p>
-            </div>
+          ].map((s, i) => (
+            <Reveal key={s.n} delay={i * 110}>
+              <div className="card-modern h-full p-8">
+                <div className="text-crimson font-serif text-3xl">{s.n}</div>
+                <h3 className="mt-4 font-serif text-xl font-semibold">{s.t}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{s.d}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </Section>
 
-      <section className="bg-secondary/50 border-y border-border">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:py-20 grid gap-10 md:grid-cols-2 md:items-center">
-          <div>
+      <section className="relative border-y border-border/70 surface-gradient">
+        <div className="mx-auto max-w-6xl px-4 py-20 md:py-28 grid gap-10 md:gap-14 md:grid-cols-2 md:items-start">
+          <Reveal>
             <Eyebrow>{t("home_why_eyebrow")}</Eyebrow>
-            <h2 className="mt-3 font-serif text-3xl md:text-4xl font-semibold text-primary">
+            <h2 className="mt-4 font-serif text-3xl md:text-5xl font-semibold text-primary">
               {t("home_why_title")}
             </h2>
-          </div>
-          <div className="space-y-4 text-foreground/80 leading-relaxed">
+          </Reveal>
+          <Reveal delay={120} className="space-y-5 text-foreground/80 leading-[1.8] md:text-lg">
             <p>{whyP1}</p>
             <p>{whyP2}</p>
             <p>{whyP3}</p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <Section className="py-12 md:py-14">
-        <div className="rounded-lg border border-border bg-card p-6 md:p-8 text-center">
-          <p className="text-sm md:text-base text-foreground/80 max-w-3xl mx-auto">
+      <Section className="py-16 md:py-20">
+        <div className="card-modern p-8 md:p-10 text-center">
+          <p className="text-sm md:text-base text-foreground/80 max-w-3xl mx-auto leading-relaxed">
             {disclaimer}
           </p>
         </div>
       </Section>
 
-      <Section className="py-12 md:py-16">
-        <div className="rounded-xl bg-primary text-primary-foreground p-8 md:p-12 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-semibold">{t("home_ready")}</h2>
-          <p className="mt-3 text-primary-foreground/80 max-w-xl mx-auto">{t("home_ready_sub")}</p>
+      <Section className="pb-24 pt-4 md:pb-32 md:pt-6">
+        <div
+          className="relative overflow-hidden rounded-3xl text-primary-foreground p-10 md:p-16 text-center shadow-[var(--shadow-media)]"
+          style={{ backgroundImage: "var(--gradient-primary)" }}
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full bg-white/10 blur-3xl"
+          />
+          <h2 className="font-serif text-3xl md:text-5xl font-semibold">{t("home_ready")}</h2>
+          <p className="mt-4 text-primary-foreground/80 max-w-xl mx-auto md:text-lg">{t("home_ready_sub")}</p>
           <Link
             to="/request-call"
-            className="mt-6 inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3 text-base font-semibold hover:opacity-90 transition"
+            className="btn-press mt-8 inline-flex items-center justify-center rounded-full bg-crimson text-white px-7 py-3.5 text-base font-semibold shadow-[var(--shadow-soft)]"
           >
             {t("cta_request_arrow")}
           </Link>

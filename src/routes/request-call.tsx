@@ -63,12 +63,12 @@ function RequestCall() {
       <Section className="pt-6">
         <div className="mx-auto max-w-2xl">
           {status === "done" ? (
-            <div className="rounded-lg border border-border bg-card p-8 text-center">
+            <div className="card-modern p-8 text-center">
               <h2 className="font-serif text-2xl font-semibold text-primary">{t("rc_done_title")}</h2>
               <p className="mt-3 text-foreground/80">{t("rc_done_msg")}</p>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="grid gap-5 rounded-lg border border-border bg-card p-6 md:p-8">
+            <form onSubmit={onSubmit} className="grid gap-5 card-modern p-6 md:p-8">
               <Field label={t("rc_fullname")} name="fullName" required />
 
               <label className="block">
@@ -142,7 +142,7 @@ function RequestCall() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="mt-2 inline-flex justify-center rounded-md bg-crimson text-white px-6 py-3 text-sm font-semibold hover:opacity-90 disabled:opacity-60 transition"
+                className="mt-2 inline-flex justify-center btn-press rounded-full bg-crimson text-white px-6 py-3 text-sm font-semibold hover:opacity-90 disabled:opacity-60 transition"
               >
                 {status === "submitting" ? t("rc_submitting") : t("rc_submit")}
               </button>
