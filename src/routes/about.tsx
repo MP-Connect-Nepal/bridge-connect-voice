@@ -58,7 +58,7 @@ function About() {
           <h2 className="mt-3 font-serif text-3xl md:text-4xl font-semibold text-primary">{t("about_team_title")}</h2>
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr] items-start">
-            <div className="rounded-lg border border-border bg-card p-6 md:p-8">
+            <div className="card-modern p-6 md:p-8">
               <div className="flex flex-col sm:flex-row gap-6">
                 <img
                   src={founderUrl}
@@ -75,7 +75,7 @@ function About() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-card p-6 text-center">
+            <div className="card-modern p-6 text-center">
               <img
                 src={programUrl}
                 alt="Himal Subedi"
@@ -109,7 +109,7 @@ function About() {
       </section>
 
       <Section>
-        <div className="rounded-lg border border-border bg-card p-8 md:p-10">
+        <div className="card-modern p-8 md:p-10">
           <Eyebrow>{t("about_commit_eyebrow")}</Eyebrow>
           <h2 className="mt-3 font-serif text-2xl md:text-3xl font-semibold text-primary">{t("about_commit_title")}</h2>
           <p className="mt-4 text-foreground/80 leading-relaxed max-w-3xl">{t("about_commit_p")}</p>
