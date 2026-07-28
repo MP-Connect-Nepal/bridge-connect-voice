@@ -54,6 +54,16 @@
   --border: #E3DED2;
   --input: #E3DED2;
   --ring: #1C3D5A;
+
+  /* Depth + gradients */
+  --gradient-primary: linear-gradient(135deg, #1C3D5A 0%, #2F6188 55%, #DC143C 140%);
+  --gradient-surface: linear-gradient(180deg, #FBF9F5 0%, #F2EDE4 100%);
+  --gradient-hero: radial-gradient(120% 90% at 15% 0%, #FFFFFF 0%, #F3EFE7 45%, #E9E3D7 100%);
+  --shadow-soft: 0 1px 2px color-mix(in oklab, #1C3D5A 6%, transparent),
+    0 8px 24px -12px color-mix(in oklab, #1C3D5A 18%, transparent);
+  --shadow-lift: 0 2px 4px color-mix(in oklab, #1C3D5A 8%, transparent),
+    0 18px 40px -16px color-mix(in oklab, #1C3D5A 30%, transparent);
+  --shadow-media: 0 24px 60px -24px color-mix(in oklab, #1C3D5A 42%, transparent);
 }
 
 @layer base {
