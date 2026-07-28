@@ -77,8 +77,16 @@ function UserMenu() {
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { t } = useLang();
   const contactEmail = useContent("contact_email", "mpconnectnepal@gmail.com");
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -88,13 +96,25 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       >
         {t("skip")}
       </a>
-      <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 py-3 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:flex lg:justify-between">
+      <header
+        className={`sticky top-0 z-40 border-b transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ${
+          scrolled
+            ? "border-border/70 glass shadow-[var(--shadow-soft)]"
+            : "border-transparent bg-background/70 backdrop-blur-sm"
+        }`}
+      >
+        <div
+          className={`mx-auto max-w-6xl px-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:flex lg:justify-between transition-[padding] duration-300 ${
+            scrolled ? "py-2" : "py-3.5"
+          }`}
+        >
           <Link to="/" className="flex items-center gap-3 min-w-0" onClick={() => setOpen(false)}>
             <img
               src={logoAsset.url}
               alt="MPConnectNepal logo"
-              className="h-14 w-14 rounded-md object-contain shrink-0"
+              className={`rounded-xl object-contain shrink-0 transition-all duration-300 ${
+                scrolled ? "h-11 w-11" : "h-14 w-14"
+              }`}
             />
             <span className="flex flex-col leading-tight min-w-0">
               <span className="font-serif text-lg font-semibold text-primary truncate">MPConnectNepal</span>
@@ -104,13 +124,16 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5">
             {navItems.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="px-3 py-2 text-sm text-foreground/80 rounded-md hover:bg-secondary hover:text-foreground transition"
-                activeProps={{ className: "px-3 py-2 text-sm rounded-md bg-secondary text-foreground font-medium" }}
+                className="relative px-3 py-2 text-sm text-foreground/75 rounded-full hover:bg-secondary/70 hover:text-foreground transition"
+                activeProps={{
+                  className:
+                    "relative px-3 py-2 text-sm rounded-full bg-secondary text-primary font-semibold shadow-[var(--shadow-soft)]",
+                }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {t(n.key)}
@@ -123,7 +146,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <UserMenu />
             <Link
               to="/request-call"
-              className="hidden sm:inline-flex items-center rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition"
+              className="btn-press hidden sm:inline-flex items-center rounded-full bg-crimson text-white px-5 py-2 text-sm font-semibold shadow-[var(--shadow-soft)]"
             >
               {t("cta_request")}
             </Link>
@@ -131,13 +154,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               aria-label="Toggle menu"
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-border"
+              className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-xl border border-border bg-card/70 btn-press"
             >
               <span className="sr-only">Menu</span>
               <div className="flex flex-col gap-1">
-                <span className="block h-0.5 w-4 bg-foreground" />
-                <span className="block h-0.5 w-4 bg-foreground" />
-                <span className="block h-0.5 w-4 bg-foreground" />
+                <span className={`block h-0.5 w-4 bg-foreground transition-transform duration-300 ${open ? "translate-y-1.5 rotate-45" : ""}`} />
+                <span className={`block h-0.5 w-4 bg-foreground transition-opacity duration-200 ${open ? "opacity-0" : ""}`} />
+                <span className={`block h-0.5 w-4 bg-foreground transition-transform duration-300 ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
               </div>
             </button>
           </div>
