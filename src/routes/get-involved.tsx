@@ -6,7 +6,7 @@ import { PageHeader, Section } from "@/components/ui-bits";
 import { submitVolunteer } from "@/lib/form-submit.functions";
 import { useLang } from "@/lib/i18n";
 
-const CONTACT_EMAIL = "suunil428@gmail.com";
+const CONTACT_EMAIL = "mpconnectnepal@gmail.com";
 
 export const Route = createFileRoute("/get-involved")({
   head: () => ({

@@ -78,7 +78,7 @@ function UserMenu() {
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const { t } = useLang();
-  const contactEmail = useContent("contact_email", "suunil428@gmail.com");
+  const contactEmail = useContent("contact_email", "mpconnectnepal@gmail.com");
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
