@@ -308,7 +308,7 @@ function PostsTab() {
         <input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
         <textarea placeholder="Short caption of the conversation…" rows={4} value={caption} onChange={(e) => setCaption(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
         <input type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} className="text-sm" />
-        <button onClick={create} disabled={busy} className="rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold disabled:opacity-60 w-fit">
+        <button onClick={create} disabled={busy} className="btn-press rounded-full bg-crimson text-white px-4 py-2 text-sm font-semibold disabled:opacity-60 w-fit">
           {busy ? "Publishing…" : "Publish post"}
         </button>
       </div>

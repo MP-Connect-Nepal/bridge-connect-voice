@@ -72,7 +72,7 @@ function HowItWorks() {
         <h2 className="font-serif text-3xl font-semibold text-primary">{t("how_ready")}</h2>
         <Link
           to="/request-call"
-          className="mt-6 inline-flex items-center justify-center rounded-md bg-crimson text-white px-6 py-3 font-semibold hover:opacity-90 transition"
+          className="mt-6 inline-flex items-center justify-center btn-press rounded-full bg-crimson text-white px-6 py-3 font-semibold hover:opacity-90 transition"
         >
           {t("cta_request_arrow")}
         </Link>
