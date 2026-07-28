@@ -142,7 +142,7 @@ function RequestCall() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="mt-2 inline-flex justify-center rounded-md bg-crimson text-white px-6 py-3 text-sm font-semibold hover:opacity-90 disabled:opacity-60 transition"
+                className="mt-2 inline-flex justify-center btn-press rounded-full bg-crimson text-white px-6 py-3 text-sm font-semibold hover:opacity-90 disabled:opacity-60 transition"
               >
                 {status === "submitting" ? t("rc_submitting") : t("rc_submit")}
               </button>

@@ -54,7 +54,7 @@ function AccountPage() {
           </label>
           {msg && <div className="text-sm text-primary">{msg}</div>}
           <div className="flex flex-wrap gap-2">
-            <button onClick={save} className="rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold">
+            <button onClick={save} className="btn-press rounded-full bg-crimson text-white px-4 py-2 text-sm font-semibold">
               Save
             </button>
             {isAdmin && (

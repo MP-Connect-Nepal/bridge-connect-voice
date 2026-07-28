@@ -182,7 +182,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               ))}
               <Link
                 to="/request-call"
-                className="mt-2 mb-3 inline-flex justify-center rounded-md bg-crimson text-white px-4 py-2 text-sm font-semibold"
+                className="mt-2 mb-3 inline-flex justify-center btn-press rounded-full bg-crimson text-white px-4 py-2 text-sm font-semibold"
                 onClick={() => setOpen(false)}
               >
                 {t("cta_request")}
