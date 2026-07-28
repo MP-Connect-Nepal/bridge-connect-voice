@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import logoAsset from "@/assets/mpconnectnepal-logo.png.asset.json";
 import { useLang, type Lang } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth-context";
