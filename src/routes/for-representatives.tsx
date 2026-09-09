@@ -6,7 +6,7 @@ import { PageHeader, Section } from "@/components/ui-bits";
 import { submitPartnership } from "@/lib/form-submit.functions";
 import { useLang } from "@/lib/i18n";
 
-const CONTACT_EMAIL = "mpconnectnepal@gmail.com";
+const CONTACT_EMAIL = "info@mpconnectnepal.org";
 
 export const Route = createFileRoute("/for-representatives")({
   head: () => ({

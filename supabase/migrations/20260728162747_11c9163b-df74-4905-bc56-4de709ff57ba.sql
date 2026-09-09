@@ -29,5 +29,5 @@ SELECT id, 'admin'::app_role FROM auth.users WHERE lower(email) = 'mpconnectnepa
 ON CONFLICT (user_id, role) DO NOTHING;
 
 INSERT INTO public.site_content (key, value_en, value_ne)
-VALUES ('contact_email', 'mpconnectnepal@gmail.com', 'mpconnectnepal@gmail.com')
+VALUES ('contact_email', 'info@mpconnectnepal.org', 'info@mpconnectnepal.org')
 ON CONFLICT (key) DO UPDATE SET value_en = EXCLUDED.value_en, value_ne = EXCLUDED.value_ne, updated_at = now();
