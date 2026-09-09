@@ -79,7 +79,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { t } = useLang();
-  const contactEmail = useContent("contact_email", "mpconnectnepal@gmail.com");
+  const contactEmail = useContent("contact_email", "info@mpconnectnepal.org");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);

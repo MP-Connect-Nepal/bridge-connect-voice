@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section } from "@/components/ui-bits";
 import { useLang } from "@/lib/i18n";
 
-const CONTACT_EMAIL = "mpconnectnepal@gmail.com";
+const CONTACT_EMAIL = "info@mpconnectnepal.org";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
