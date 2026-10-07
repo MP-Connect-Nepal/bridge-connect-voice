@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Section, Eyebrow, TrustBadge } from "@/components/ui-bits";
 import { Reveal, Parallax } from "@/components/Reveal";
 import { useLang } from "@/lib/i18n";
-import heroImage from "@/assets/virtual-call.jpg.asset.json";
+import heroImage from "@lib/assets";
 import { useContent, useImageOverride } from "@/lib/content-hooks";
 import { useSignedUrl } from "@/lib/signed-url";
 

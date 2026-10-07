@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHeader, Section, Eyebrow } from "@/components/ui-bits";
-import sunilAsset from "@/assets/sunil-chaudhary.jpg.asset.json";
-import himalAsset from "@/assets/himal-subedi.png.asset.json";
+import { sunilAsset, himalAsset } from "@/lib/assets";
+ 
 import { useLang } from "@/lib/i18n";
 import { useContent, useImageOverride } from "@/lib/content-hooks";
 import { useSignedUrl } from "@/lib/signed-url";
